@@ -10,12 +10,6 @@ From npm:
 npm install @notmike101/iframe-sandbox-runtime
 ```
 
-From GitHub Packages:
-
-```bash
-npm install @notmike101/iframe-sandbox-runtime --registry=https://npm.pkg.github.com
-```
-
 ## Usage
 
 ```js

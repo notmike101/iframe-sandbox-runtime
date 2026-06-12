@@ -27,8 +27,7 @@
     "check": "npm run build && npm run test",
     "prepublishOnly": "npm run check",
     "pack:check": "npm pack --dry-run",
-    "publish:npm": "npm publish --access public",
-    "publish:gpr": "npm publish --registry=https://npm.pkg.github.com"
+    "publish:npm": "npm publish --access public"
   },
   "keywords": [
     "iframe",
