@@ -11,6 +11,9 @@
       "default": "./dist/iframe-sandbox-runtime.js"
     }
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist",
     "README.md",
