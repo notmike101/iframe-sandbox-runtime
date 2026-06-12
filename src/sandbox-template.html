@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<base target="_blank">
+<script>
+    const realWindowParent = window.parent;
+
+    for (const method of [...Object.getOwnPropertyNames(console)]) {
+        if (typeof console[method] !== "function") {
+            continue;
+        }
+
+        console[method] = (...data) => Reflect.apply(realWindowParent.console[method], undefined, [`SANDBOX-${globalThis.nonce}`, ...data]);
+    }
+
+    Object.defineProperties(document, {
+        replaceChild: {
+            value: (...args) => Reflect.apply(window.frameElement.parentNode.replaceChild, window.frameElement.parentNode, args),
+        },
+        replaceChildren: {
+            value: (...nodes) => Reflect.apply(window.frameElement.parentElement.replaceChildren, window.frameElement.parentNode, nodes),
+        },
+        querySelector: {
+            value: (selectors) => Reflect.apply(window.frameElement.parentNode.querySelector, window.frameElement.parentNode, [selectors]),
+        },
+        querySelectorAll: {
+            value: (selectors) => Reflect.apply(window.frameElement.parentNode.querySelectorAll, window.frameElement.parentNode, [selectors]),
+        },
+        append: {
+            value: (...nodes) => Reflect.apply(window.frameElement.parentNode.append, window.frameElement.parentNode, nodes),
+        },
+        prepend: {
+            value: (...nodes) => Reflect.apply(window.frameElement.parentNode.prepend, window.frameElement.parentNode, nodes),
+        },
+        appendChild: {
+            value: (node) => Reflect.apply(window.frameElement.parentNode.appendChild, window.frameElement.parentNode, [node]),
+        },
+        removeChild: {
+            value: (node) => Reflect.apply(window.frameElement.parentNode.removeChild, window.frameElement.parentNode, [node]),
+        },
+        addEventListener: {
+            value: (...args) => Reflect.apply(window.frameElement.parentNode.addEventListener, window.frameElement.parentNode, args),
+        },
+        removeEventListener: {
+            value: (...args) => Reflect.apply(window.frameElement.parentNode.removeEventListener, window.frameElement.parentNode, args),
+        },
+        contains: {
+            value: (other) => Reflect.apply(window.frameElement.parentNode.contains, window.frameElement.parentNode, [other]),
+        },
+        createElement: {
+            value: (...args) => Reflect.apply(realWindowParent.document.createElement, realWindowParent.document, args),
+        },
+        clear: {
+            value: () => Reflect.apply(window.frameElement.parentNode.replaceChildren, window.frameElement.parentNode, []),
+        },
+        children: {
+            enumerable: true,
+            value: Reflect.get(window.frameElement.parentNode, "children"),
+        },
+        childElementCount: {
+            enumerable: true,
+            value: Reflect.get(window.frameElement.parentNode, "childElementCount"),
+        },
+        body: {
+            get() {
+                return Reflect.get(window.frameElement, "parentNode");
+            },
+            set(...args) {
+                return Reflect.apply(window.frameElement.parentNode.replaceChildren, window.frameElement.parentNode, args);
+            },
+        },
+    });
+
+    Object.defineProperties(window, {
+        parent: {
+            enumerable: true,
+            value: Reflect.get(window.frameElement, "parentNode"),
+        },
+        open: {
+            value: (...args) => Reflect.apply(realWindowParent.open, realWindowParent, args),
+        },
+    });
+
+    window.addEventListener("unhandledrejection", (event) => {
+        event.preventDefault();
+        console.error(event.error);
+    });
+
+    window.addEventListener("error", (event) => {
+        event.preventDefault();
+        console.error(event.error);
+    });
+
+    const runCode = (code) => {
+        const isolatedFunction = new Function(code);
+        isolatedFunction();
+    };
+
+    window.addEventListener("message", (event) => {
+        if (event.data.nonce !== globalThis.nonce) {
+            return;
+        }
+
+        switch (event.data.method) {
+            case "run": {
+                runCode(event.data.code);
+                break;
+            }
+        }
+    });
+</script>

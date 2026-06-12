@@ -1,0 +1,56 @@
+{
+  "name": "@notmike101/iframe-sandbox-runtime",
+  "version": "0.1.0",
+  "description": "Browser-only iframe sandbox runtime for executing untrusted UI code in an isolated frame with controlled DOM access.",
+  "type": "module",
+  "main": "./dist/iframe-sandbox-runtime.js",
+  "module": "./dist/iframe-sandbox-runtime.js",
+  "exports": {
+    ".": {
+      "import": "./dist/iframe-sandbox-runtime.js",
+      "default": "./dist/iframe-sandbox-runtime.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "PUBLISHING.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "vitest run",
+    "check": "npm run build && npm run test",
+    "prepublishOnly": "npm run check",
+    "pack:check": "npm pack --dry-run",
+    "publish:npm": "npm publish --access public",
+    "publish:gpr": "npm publish --registry=https://npm.pkg.github.com"
+  },
+  "keywords": [
+    "iframe",
+    "sandbox",
+    "browser",
+    "runtime",
+    "dom",
+    "esm"
+  ],
+  "author": "notmike101",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/notmike101/iframe-sandbox-runtime.git"
+  },
+  "homepage": "https://github.com/notmike101/iframe-sandbox-runtime#readme",
+  "bugs": {
+    "url": "https://github.com/notmike101/iframe-sandbox-runtime/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
+  }
+}

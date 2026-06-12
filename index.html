@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iframe-sandbox-runtime Demo</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(180deg, #f3f8ff 0%, #eef2f8 100%);
+        color: #172033;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+      }
+
+      main {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid #d6dfef;
+        border-radius: 20px;
+        box-shadow: 0 18px 50px rgba(23, 32, 51, 0.08);
+        padding: 24px;
+      }
+
+      [data-sandbox-output] {
+        min-height: 120px;
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 16px;
+        border: 1px dashed #6d7f9a;
+        background: #f8fbff;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="card">
+        <h1>@notmike101/iframe-sandbox-runtime</h1>
+        <p>Demo page for the reusable browser ESM package.</p>
+        <div data-sandbox-output>
+          <p>Sandbox output will render here.</p>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/demo/main.js"></script>
+  </body>
+</html>

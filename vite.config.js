@@ -1,0 +1,15 @@
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  build: {
+    lib: {
+      entry: "./src/index.js",
+      formats: ["es"],
+      fileName: () => "iframe-sandbox-runtime.js",
+    },
+  },
+  test: {
+    environment: "jsdom",
+    globals: true,
+  },
+});
