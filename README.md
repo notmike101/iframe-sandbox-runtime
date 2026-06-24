@@ -1,6 +1,8 @@
-# `@notmike101/iframe-sandbox-runtime`
+# iFrame Sandbox Runtime
 
 Browser-only iframe sandbox runtime for executing untrusted UI code in an isolated frame while exposing a controlled DOM surface to the sandboxed code.
+
+This is experimental and may not be a fully secure runtime. Use at your own risk.
 
 ## Installation
 
@@ -60,9 +62,9 @@ Returns a previously created instance by name.
 ## Development
 
 ```bash
-npm install
-npm run dev
-npm run check
+pnpm install
+pnpm run dev
+pnpm run check
 ```
 
 The demo page is served by Vite and exercises the source package directly during development.
